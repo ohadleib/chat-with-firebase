@@ -32,23 +32,29 @@ class AuthService {
     }
   }
 
-  Future <UserCredential> signUpWithEmailPassword(String email, String password) async {
+  // פונקציה להרשמה עם דוא"ל וסיסמה
+  Future<UserCredential> signUpWithEmailPassword(String email, password) async {
     try {
-
+      // יצירת משתמש חדש עם דוא"ל וסיסמה
       UserCredential userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      _firebaseFirestore.collection('Users').doc(userCredential.user!.uid).set(
-        {
+      // שמירת פרטי המשתמש במסמך נפרד במסד הנתונים
+      try {
+        await _firebaseFirestore.collection('Users').doc(userCredential.user!.uid).set({
           'uid': userCredential.user!.uid,
           'email': email,
-        }
-      );
+        });
+      } catch (e) {
+        print('Error writing to Firestore: $e');
+      }
 
+      // החזרת אישור המשתמש
       return userCredential;
     } on FirebaseAuthException catch (e) {
+      // במקרה של שגיאת הרשמה, זריקת חריגה עם קוד השגיאה
       throw Exception(e.code);
     }
   }
