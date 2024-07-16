@@ -29,7 +29,7 @@ class _RegisterPageState extends State<RegisterPage> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => LoginPage()
+            builder: (context) => LoginPage() // נחזור ב 13:00
           ),
         );
       } catch (e) {
