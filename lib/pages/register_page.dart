@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:good_chat_new/pages/login_page.dart';
 import '../components/my_button.dart';
 import '../components/my_textfield.dart';
 import '../services/auth/auth_service.dart';
+import 'login_page.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage();
@@ -28,14 +28,16 @@ class _RegisterPageState extends State<RegisterPage> {
 
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => LoginPage()),
+          MaterialPageRoute(
+            builder: (context) => LoginPage(),
+          ),
         );
       } catch (e) {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
             backgroundColor: Theme.of(context).colorScheme.surface,
-            title: Text(e.toString()),
+            title: Text(e.toString()), // הקפד להשתמש ב-Text
           ),
         );
       }
@@ -44,17 +46,10 @@ class _RegisterPageState extends State<RegisterPage> {
         context: context,
         builder: (context) => AlertDialog(
           backgroundColor: Theme.of(context).colorScheme.surface,
-          title: const Text('Passwords don\'t match'),
+          title: const Text("Passwords don't match"), // הקפד להשתמש ב-Text
         ),
       );
     }
-  }
-
-  void navigatorToLogIn() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => LoginPage()),
-    );
   }
 
   @override
@@ -116,7 +111,9 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                     const SizedBox(width: 4),
                     GestureDetector(
-                      onTap: navigatorToLogIn,
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
                       child: const Text(
                         'Login now',
                         style: TextStyle(
