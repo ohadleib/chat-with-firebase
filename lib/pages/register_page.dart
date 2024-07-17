@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:good_chat_new/pages/login_page.dart';
-
 import '../components/my_button.dart';
 import '../components/my_textfield.dart';
 import '../services/auth/auth_service.dart';
@@ -8,6 +7,7 @@ import '../services/auth/auth_service.dart';
 class RegisterPage extends StatefulWidget {
   const RegisterPage();
 
+  @override
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
@@ -28,9 +28,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(
-            builder: (context) => LoginPage() // נחזור ב 13:00
-          ),
+          MaterialPageRoute(builder: (context) => LoginPage()),
         );
       } catch (e) {
         showDialog(
@@ -43,23 +41,23 @@ class _RegisterPageState extends State<RegisterPage> {
       }
     } else {
       showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            backgroundColor: Theme.of(context).colorScheme.surface,
-            title: Text('Password dont match'),
-          ),
-        );
+        context: context,
+        builder: (context) => AlertDialog(
+          backgroundColor: Theme.of(context).colorScheme.surface,
+          title: const Text('Passwords don\'t match'),
+        ),
+      );
     }
   }
-  
 
   void navigatorToLogIn() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => LoginPage())
+      MaterialPageRoute(builder: (context) => LoginPage()),
     );
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
@@ -69,60 +67,60 @@ class _RegisterPageState extends State<RegisterPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 50),
+                const SizedBox(height: 50),
                 Image.asset(
                   'lib/images/message.png',
                   height: 100,
                   color: Theme.of(context).colorScheme.primary,
                 ),
-                SizedBox(height: 50),
+                const SizedBox(height: 50),
                 Text(
-                  'Craete account',
+                  'Let\'s create an account for you',
                   style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
+                    color: Colors.grey[700],
+                    fontSize: 16,
                   ),
                 ),
-                SizedBox(height: 50),
+                const SizedBox(height: 25),
                 MyTextField(
                   controller: emailController,
-                  hintText: "Email",
+                  hintText: 'Email',
                   obscureText: false,
                 ),
-                SizedBox(height: 10),
-                 MyTextField(
+                const SizedBox(height: 10),
+                MyTextField(
                   controller: passwordController,
-                  hintText: "Password",
+                  hintText: 'Password',
                   obscureText: true,
                 ),
-                SizedBox(height: 10),
-                 MyTextField(
+                const SizedBox(height: 10),
+                MyTextField(
                   controller: confirmPasswordController,
-                  hintText: "Confirm Password",
+                  hintText: 'Confirm password',
                   obscureText: true,
                 ),
-                SizedBox(height: 25),
+                const SizedBox(height: 25),
                 MyBotton(
                   onTap: register,
-                  text: "Register",
+                  text: "Sign Up",
                 ),
-                SizedBox(height: 50),
+                const SizedBox(height: 50),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       'Already a member?',
                       style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                     ),
-                    SizedBox(width: 4),
+                    const SizedBox(width: 4),
                     GestureDetector(
                       onTap: navigatorToLogIn,
-                      child: Text(
+                      child: const Text(
                         'Login now',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.primary
                         ),
                       ),
                     ),
